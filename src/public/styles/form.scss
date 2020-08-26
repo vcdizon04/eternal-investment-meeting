@@ -1,0 +1,133 @@
+button{
+	&:focus{
+		outline: none;
+		box-shadow: none;
+	}
+}
+#g-recaptcha{
+	@include transform(scale(0.9));
+	margin-left: em(-15px);
+}
+.form-error{
+	color: red;
+	font-size: em(14px);
+}
+.label{
+	font-size: em(16px);
+	color: #4d4d4d;
+	font-weight: 600;
+	margin-bottom: em(12px);
+	line-height: normal;
+}
+.form-group{
+	position: relative;
+}
+.form-control{
+	background-color: $form_control_bg;
+	border: 1px solid;
+	border-color: $form_control_border;
+	font-size: em(14px);
+	color: $form_control_text;
+	height: em(40px);
+	padding: em(12px) em(14px);
+	@include border-radius(3px);
+	@include transition(all 1s ease-in-out);
+	@include placeholder {
+		color: $form_control_text;
+	}
+	&:focus{
+		outline: none;
+		box-shadow: none;
+		border-color: $form_control_border;
+	}
+}
+select{
+	border: em(01px) solid;
+	border-color: $form_control_border;
+	font-size: em(14px);
+	color: $form_control_text;
+	height: em(40px);
+	padding: 0 em(14px);
+	width: 100%;
+	background-color: $form_control_bg;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("#{$image_path}/select-arrow.png") no-repeat right center;
+    &:focus{
+		border-color: $form_effect_color;
+		box-shadow: none;
+		outline: none;
+	}
+	&.form-control{
+		padding: 0 em(14px);
+	}
+}
+.normal-select{
+	line-height: normal;
+	border-radius: 0;
+	border: em(01px) solid;
+	font-size: em(14px);
+	padding: em(05px) em(35px) em(05px) em(13px);
+	display: inline-block;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-color: $normal_select_border_color;
+	color: $normal_select_color;
+	font-weight: $fontWeight-regular;
+	background: #fff url("#{$image_path}/select-arrow.png") no-repeat right center;
+    &:focus{
+    	outline: none;
+    	box-shadow: none;
+    	border: 1px solid;
+    	border-color: $normal_select_border_color;
+		}
+		
+		&:disabled {
+			background-color: #eeeeee;
+		}
+}
+.input-effect-1{
+	position: relative;
+	.normal-select ~ .focus-border{
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 0;
+		height: em(02px);
+		background-color: $base_color;
+		@include transition(0.4s);
+	}
+	.normal-select:focus ~ .focus-border{
+		width: 100%;
+		left: 0;
+	}
+	.file-select ~ .focus-border{
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 0;
+		height: em(02px);
+		background-color: $base_color;
+		@include transition(0.4s);
+	}
+	.file-select:focus ~ .focus-border{
+		width: 100%;
+		left: 0;
+	}
+}
+
+.form-control ~ .focus-border{
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: em(02px);
+	background-color: $base_color;
+	@include transition(0.4s);
+}
+.form-control:focus ~ .focus-border{
+	width: 100%;
+	left: 0;
+}

@@ -1,0 +1,27 @@
+.authentication{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	.thumb{
+		width: 100%;
+		height: 100%;
+		background-position: center center;
+		position: fixed;
+		left: 0;
+		top: 0;
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+	.login-container{
+		position: relative;
+		padding: em(15px);
+		z-index: 10;
+	}
+	.register-container{
+		position: relative;
+		padding: em(15px);
+		z-index: 10;
+	}
+}

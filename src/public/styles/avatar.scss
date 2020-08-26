@@ -1,0 +1,39 @@
+.avatar {
+	padding: 0;
+	margin: 0;
+	position: relative;
+	&.avatar-round{
+		@include border-radius(100px);
+		img{
+			@include border-radius(100px);
+		}
+	}
+	&.avatar-x{
+		width: em(20px);
+		height: em(20px);
+	}
+	&.avatar-xs{
+		width: em(30px);
+		height: em(30px);
+	}
+	&.avatar-sm{
+		width: em(40px);
+		height: em(40px);
+	}
+	&.avatar-md{
+		width: em(50px);
+		height: em(50px);
+	}
+	&.avatar-lg{
+		width: em(80px);
+		height: em(80px);
+	}
+	&.avatar-xl{
+		width: em(100px);
+		height: em(100px);
+	}
+	&.avatar-large{
+		width: em(150px);
+		height: em(150px);
+	}
+}

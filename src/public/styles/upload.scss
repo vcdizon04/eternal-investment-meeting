@@ -1,0 +1,94 @@
+// bulk import (dropzone)
+.bulk-import {
+    padding: 0;
+    margin: 0;
+    .titles {
+        margin-bottom: em(30px);
+        display: block;
+        h2 {
+            color: $bulk_title_text;
+            font-weight: 700;
+            @extend .font_24;
+        }
+    }
+    .drop-area {
+        display: block;
+        width: 100%;
+        background-color: $bulk_drop_area_bg;
+        border: em(01px) dashed;
+        border-color: $bulk_drop_area_border;
+        padding: em(15px);
+        height: em(150px);
+        text-align: center;
+        margin-bottom: em(30px);
+        .text {
+            display: block;
+            width: 100%;
+            p {
+                @extend .font_24;
+                color: $bulk_drop_area_text;
+                font-weight: 600;
+                display: block;
+            }
+            .fa-cloud-upload-alt{
+                font-size: 50px;
+            }
+            .icon {
+                margin-bottom: em(10px);
+                &.icon-upload {
+                    path {
+                        fill: $bulk_drop_area_svg;
+                    }
+                }
+            }
+        }
+    }
+    .file-format{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        .icon{
+            display: block;
+            margin-right: 10px;
+            .fa{
+                width: 30px;
+                height: 30px;
+                path {
+                    fill: green;
+                }
+            }
+        }
+        .file-name{
+            display: block;
+            font-size: 16px;
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+    .file-format-message {
+        display: block;
+        text-align: center;
+        margin-bottom: em(45px);
+        @include mq(sm) {
+            margin-bottom: em(20px);
+        }
+        p {
+            font-size: em(18px);
+            color: $bulk_file_formate_text;
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+    .action {
+        display: block;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+}

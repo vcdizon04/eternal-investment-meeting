@@ -1,0 +1,258 @@
+/* media setting start */
+@mixin mq($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (max-width: 767px){
+      @content;
+    }
+  }
+  @if $breakpoint == "xs" {
+    @media (min-width: 200px) and (max-width: 575px){
+      @content;
+    }
+  }
+  @if $breakpoint == "x" {
+    @media (min-width: 200px) and (max-width: 479px){
+      @content;
+    }
+  }
+  @if $breakpoint == "md" {
+     @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "lg" {
+    @media (min-width: 992px) and (max-width: 1400px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "xl" {
+    @media (min-width: 1401px) and (max-width: 1919px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "xxl" {
+    @media (min-width: 1920px) and (max-width: 2559px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "xxxl" {
+    @media (min-width: 2560px) and (max-width: 2879px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "large" {
+    @media (min-width: 2880px) and (max-width: 3199px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "exlarge" { // extra large
+    @media (min-width: 3200px) and (max-width: 5119px) {
+      @content;
+    }
+  }
+  @if $breakpoint == "big" { // big large
+    @media (min-width: 5120px) and (max-width: 10000px) {
+      @content;
+    }
+  }
+}
+
+@mixin max-width($maxWidth) {
+  @media screen and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin max-width($maxWidth) {
+  @media screen and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin mh($breakheight) {
+  // 740 height
+  @if $breakheight == "xsh" {
+    @media (max-width: 767px) and (max-height: 740px){
+      @content;
+    }
+  }
+  @if $breakheight == "xh" {
+    @media (max-width: 10px) and (max-height: 90px){
+      @content;
+    }
+  }
+}
+
+
+@media (min-width: 992px) and (max-width: 1139px){
+  @for $h from 1 through 12{
+    .col-sd-#{$h}{
+      width: 100% / 12 * $h;
+      padding: 0 rem(15px);
+      float: left;
+      position: relative;
+      min-height: 1px;
+    }
+    .col-x-offset-#{$h}{
+      margin-left: 100% / 12 * $h;
+    }
+    .col-x-push-#{$h}{
+      left: 100% / 12 * $h;
+    }
+    .col-x-pull-#{$h}{
+      right: 100% / 12 * $h;
+    }
+  }
+}
+
+
+/* media setting close */
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+   -webkit-border-top-left-radius: $radius;
+   border-top-left-radius: $radius;
+   background-clip: padding-box;
+}
+@mixin border-right-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+     -webkit-border-top-right-radius: $radius;
+     border-top-right-radius: $radius;
+     background-clip: padding-box;
+}
+@mixin border-bottom-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+   -webkit-border-bottom-left-radius: $radius;
+   border-bottom-left-radius: $radius;
+   background-clip: padding-box;
+}
+@mixin border-left-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+     -webkit-border-top-left-radius: $radius;
+     border-top-left-radius: $radius;
+     background-clip: padding-box;
+}
+
+/* transition */
+@mixin transition($val...) {
+    -webkit-transition: $val;
+    -moz-transition: $val;
+    -o-transition: $val;
+    transition: $val;
+}
+
+@mixin bgopacity($color, $bgopacity: 0.3) {
+    background: rgba($color, $bgopacity);
+}
+//@include bgopacity('#ff0000', '0.3');
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+//@include opacity(0.8);
+
+@mixin transform($transforms) {
+     -moz-transform: $transforms;
+       -o-transform: $transforms;
+      -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+          transform: $transforms;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -webkit-box-shadow:$top $left $blur $color #{$inset};
+  -moz-box-shadow:$top $left $blur $color #{$inset};
+  box-shadow:$top $left $blur $color #{$inset};
+}
+
+
+// @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.5));
+// rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// scale
+@mixin scale($scale) {
+   @include transform(scale($scale));
+}
+// translate
+@mixin translate ($x, $y) {
+   @include transform(translate($x, $y));
+}
+// skew
+@mixin skew ($x, $y) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+@mixin animation($animation...) {
+  -o-animation: $animation;
+  -moz-animation: $animation;
+  -webkit-animation: $animation;
+  animation: $animation;
+}
+
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+/* placeholder */
+@mixin placeholder {
+    &::-webkit-input-placeholder {@content;}
+    &:-moz-placeholder {@content;}
+    &::-moz-placeholder {@content;}
+    &:-ms-input-placeholder {@content;}
+}
+/* ellipsis */
+@mixin ellipsis ($max-width){
+  max-width: $max-width;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin ellipsisremove(){
+  width: inherit;
+  white-space: inherit;
+}
+
+@function set-notification-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return #000000; // Lighter backgorund, return dark color
+  } @else {
+    @return #ffffff; // Darker background, return light color
+  }
+}
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

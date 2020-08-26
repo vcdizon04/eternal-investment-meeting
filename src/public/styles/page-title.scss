@@ -1,0 +1,62 @@
+$head_padd_right: em(300px);
+
+.page-head{
+	padding: 0;
+	position: relative;
+	h1{
+		font-size: em(28px);
+		color: $page_title_color;
+		font-weight: $fontWeight-bold;
+		line-height: normal;
+		margin: 0;
+		// @include ellipsis(400px);
+		@include mq(sm) {
+			font-size: em(20px);
+		}
+	}
+	.head{
+		padding-right: $head_padd_right;
+		@include mq(sm) {
+			padding-right: 0;
+			margin-bottom: em(15px);
+		}
+		@include mq(md) {
+			padding-right: 0;
+			margin-bottom: em(15px);
+		}
+	}
+	.actions{
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		display: table;
+		text-align: right;
+		@include mq(sm) {
+			width: 100%;
+		}
+		@include mq(md) {
+			width: 100%;
+		}
+		.btn{
+			margin-left: em(20px);
+			&:first-child{
+				margin-left: 0;
+			}
+			@include mq(x) {
+				padding: em(10px) em(15px);
+			}
+		}
+		@include mq(sm) {
+			position: relative;
+			text-align: left;
+			margin-bottom: em(10px);
+		}
+		@include mq(md) {
+			position: relative;
+			text-align: left;
+			margin-bottom: em(10px);
+		}
+	}
+}

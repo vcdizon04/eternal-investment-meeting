@@ -1,0 +1,255 @@
+// font size set
+$browser-context: 14;
+@function em($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return $pixels / $context * 1em;
+}
+
+// root path varibale
+$image_path : '/assets/images' !default;
+$svg_path : '/assets/svg' !default;
+
+// Base variable
+$basefamiy : 'Source Sans Pro', 'airal', sans-serif !default;
+$baseLineHeight : 1.6;
+
+//color code
+$brand_1: #ffc107;
+$brand_2: #1f1f1f;
+$brand_3: #4d4d4d;
+
+// hr
+$hr_color: #dcdcdc;
+$text_color: #4d4d4d;
+
+// border radius variable
+$border_radius_2: em(02px);
+$border_radius_3: em(03px);
+$border_radius_4: em(04px);
+$border_radius_5: em(05px);
+$border_radius_10: em(10px);
+$border_radius_15: em(15px);
+$border_radius_20: em(20px);
+
+// font weight variable
+$fontWeight-hair: 100;
+$fontWeight-thin: 200;
+$fontWeight-light: 300;
+$fontWeight-regular: 400;
+$fontWeight-medium: 500;
+$fontWeight-semibold: 600;
+$fontWeight-bold: 700;
+$fontWeight-extrabold: 800;
+$fontWeight-dark: 900;
+
+// z-index variable
+$zindex-footer : 1000;
+$zindex-main-panel: 1000;
+$zindex-header : 1200;
+$zindex-header-search: 1300;
+$zindex-leftsidebar : 1400;
+$main-panel-overlay: 1360;
+$zindex-header-search-open: 1450;
+$z-index-modal-backdrop: 1500;
+$z-index-modal: 1550;
+$zindex-sweet-alert:1600;
+
+// main structure setting
+$main_panel: em(250px);
+$main_panel_mini: em(80px);
+
+// leftsidebar
+$leftsidebar_bg: #1f1f1f;
+$mainlogo_bg: #f7f7f7;
+$leftsidebar_width: em(250px);
+$leftsidebar_height: em(80px);
+$leftmenu_border_color: #1f1f1f;
+$leftmenu_active_border_color: #1f1f1f;
+$leftmenu_icon: #838383;
+$leftmenu_text: #838383;
+$leftmenu_fa: #838383;
+$leftmenu_active_text: #fff;
+$leftmenu_hover_bg: #0f0f0f;
+
+// header dropdown
+$header_bg: #fff;
+$header_border: #efefef;
+$header_mobile_bg: #1f1f1f;
+$header_icon: #acafb5;
+$header_mobile_icon: #fff;
+$header_nav_border: #efefef;
+$header_other_mobile_bg: #1f1f1f;
+$header_nav_height: em(80px);
+// header dropdown
+$header_dropdown_notification: em(340px);
+$header_dropdown_bg: #fff;
+$header_dropdown_border: #efefef;
+$header_arrow_icon: #afb2b7;
+$header_list_border: #ededed;
+// header notification
+$header_notification_counter_bg: #ffede9;
+$header_notification_text: #686868;
+$header_notification_from_label: #bebebe;
+$header_notification_from_name: #3d3d3d;
+// header card
+$header_card_border: #eaeaea;
+$header_card_footer: #fbfbfb;
+$header_card_footer_border: #ededed;
+// header search
+$header_search_area_bg: #f7f7f7;
+$header_search_input_bg: #fff;
+$header_search_input_text: #4d4d4d;
+$header_search_close_bg: #1f1f1f;
+$header_search_close_svg: #fff;
+// header profile
+$header_profile_name_text: #acafb5;
+$header_profile_text: #686868;
+$header_profile_mail_name: #3d3d3d;
+$header_profile_mail_email: #8c8c8c;
+
+// authentication color variable
+$auth_white : #fff;
+$auth_silver_chalice : #b2b2b2;
+$auth_flamingo : #ffc107;
+
+// dashboard view
+$main_bg: #f7f7f7;
+
+// page title
+$page_title_color: #4d4d4d;
+
+// box
+$box_bg: #fff;
+$box_border: #efefef;
+
+// btn text
+$btn_text_hover: #1f1f1f;
+
+// btn orange
+$btn_orange_bg: #ffc107;
+$btn_orange_border: #ffc107;
+$btn_orange_text: #fff;
+$btn_orange_hover_bg: #1f1f1f;
+$btn_orange_hover_border: #1f1f1f;
+$btn_orange_hover_text: #fff;
+
+// btn white
+$btn_white_bg: #fff;
+$btn_white_border: #e5e5e5;
+$btn_white_text: #1f1f1f;
+$btn_white_hover_bg: #ffc107;
+$btn_white_hover_border: #ffc107;
+$btn_white_hover_color: #fff;
+
+// color variable
+$base_color: #ffc107;
+$white_color: #fff;
+$border_color_1 : #efefef;
+
+//
+$card_title_color: #4d4d4d;
+$card_border_color: #efefef;
+
+// home activity
+$activity_content_color: #787878;
+$activity_time_color: #cdcdcd;
+$activity_action_color: #696969;
+
+//avatar
+$gray_color_1 : #f1f1f1;
+
+// normal select
+$normal_select_border_color: #e5e5e5;
+$normal_select_color: #434343;
+$normal_select_bg: #fff;
+
+// checkbox
+$checkbox_bg: #fff;
+$checkbox_border: #dcdcdc;
+$checkbox_label: #898989;
+$checkbox_active_color: #fff;
+$checkbox_active: #ffc107;
+
+// breadcrumb
+$breadcrumb_bg: transparent;
+$breadcurmb_text: #9c9c9c;
+$breadcurmb_link: #9c9c9c;
+
+// form
+$form_label: #4d4d4d;
+$form_control_text: #8c8c8c;
+$form_control_bg: #fff;
+$form_control_border: #dcdcdc;
+$form_effect_color: #ffc107;
+
+// svg loader
+$svg_loader_path: #ffc107;
+$svg_loader_circle: #bfbfbf;
+
+// loader
+$loader_bg: rgba(255,255,255,0.3);
+
+// bulk upload
+$bulk_title_text: #4d4d4d;
+$bulk_drop_area_bg: #fbfbfb;
+$bulk_drop_area_border: #bfbfbf;
+$bulk_drop_area_text: #9c9c9c;
+$bulk_drop_area_svg: #c2c2c2;
+$bulk_file_formate_text: #9c9c9c;
+
+// datatable
+$dataTables_filter_border: #efefef;
+$dataTables_filter_text: #626262;
+$dataTables_length_bg: #fff;
+$dataTables_paginate_button_bg: #fff;
+$dataTables_paginate_button_text: #7b7b7b;
+$dataTables_paginate_button_border: #fff;
+$dataTables_paginate_button_border_1: #efefef;
+$dataTables_paginate_button_disable_text: #e2e2e2;
+$dataTables_paginate_button_bg_hover: #fff;
+$dataTables_paginate_button_text_hover: #7b7b7b;
+$dataTables_paginate_button_border_hover: #fff;
+
+// authentication
+$authentication_bg: #fff;
+$authentication_label: #b2b2b2;
+$authentication_forgot_link: #b2b2b2;
+$authentication_forgot_link_hover: #ffc107;
+$authentication_keep_me_text: #b2b2b2;
+$authentication_input_border: #dcdcdc;
+$authentication_input_bg: #fff;
+$authentication_input_text: #8c8c8c;
+$authentication_action_border: #f2f2f2;
+$authentication_action_submit_bg: #ffc107;
+$authentication_action_submit_text: #fff;
+$authentication_action_submit_bg_hover: #4d4d4d;
+$authentication_signup_text: #b2b2b2;
+$authentication_signup_text_hover: #ffc107;
+
+// edit photo
+$edit_photo_bg: #fafafa;
+$edit_photo_border: #f1f1f1;
+$edit_photo_thumb_border: #fff;
+$edit_photo_name: #4d4d4d;
+$edit_photo_action_text: #848484;
+
+// modal
+$modal_content: transparent;
+$modal_body: #fff;
+$modal_footer: #f5f5f5;
+$modal_header: #3b3b3b;
+$modal_title: #fff;
+$modal_close: #fff;
+
+// status color
+$status_green: #badc58;
+$status_red: #fab1a0;
+$status_gray: #b3b3b3;
+$status_blue: #1b86ff;
+$status_yellow: #f6e58d;
+

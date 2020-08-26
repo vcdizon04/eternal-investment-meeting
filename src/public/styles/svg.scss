@@ -1,0 +1,65 @@
+svg{
+	vertical-align: top;
+}
+.icon{
+	display: inline-block;
+	line-height: normal;
+	// svg {
+	// 	width: 100%;
+	// 	height: 100%;
+	// }
+	&.icon-email{
+		width: em(18px);
+		height: em(12px);
+	}
+	&.icon-pass{
+		width: em(14px);
+		height: em(18px);
+	}
+	&.icon-menu{
+		width: em(30px);
+		height: em(30px);
+	}
+	&.icon-upload{
+		width: em(42px);
+		height: em(28px);
+	}
+}
+
+
+.fa-clock{
+	path {
+		fill: #c6c6c6;
+	}
+}
+.fa-calendar-alt{
+	path {
+		fill: #c6c6c6;
+	}
+}
+.svgloader{
+	width: 50px;
+	height: 50px;
+	margin: auto;
+	display: block;
+	path {
+		stroke: $svg_loader_path;
+	}
+	circle{
+		stroke: $svg_loader_circle;
+	}
+}
+
+// .loader{
+// 	background-color: $loader_bg;
+// 	width: 100%;
+// 	height: 100%;
+// 	margin: auto;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	position: fixed;
+// 	right: 0;
+// 	bottom: 0;
+// 	z-index: 999;
+// }

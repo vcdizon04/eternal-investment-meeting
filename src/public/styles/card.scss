@@ -1,0 +1,42 @@
+.card{
+	height: 100%;
+	border-radius: 0;
+	border: 1px solid;
+	border-color: $card_border_color;
+	.card-header{
+		padding: em(10px) em(20px);
+		min-height: em(60px);
+		background-color: transparent;
+	}
+	&.card-border{
+		border: em(01px) solid;
+		border-color: $card_border_color;
+		background-color: $white_color;
+		.card-header{
+			border-color: $card_border_color;
+			background-color: $white_color;
+			h2{
+				font-size: em(18px);
+				color: $card_title_color;
+				font-weight: $fontWeight-bold;
+				margin: 0;
+			}
+		}
+	}
+	&.card-simple{
+		border: 0;
+		.card-header{
+			padding: 0;
+			border-bottom: 0;
+			h2{
+				color: $card_title_color;
+				font-weight: $fontWeight-bold;
+				margin: 0;
+				@extend .font_24;
+			}
+		}
+		.card-body{
+			padding: 0;
+		}
+	}
+}

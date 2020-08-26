@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.969" viewBox="0 0 18 13.969">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #64ba62;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="right_check" data-name="right check" class="cls-1" d="M301.208,217.707a0.68,0.68,0,0,1,0-.979l0.969-.979a0.664,0.664,0,0,1,.969,0l0.069,0.07,3.808,4.125a0.333,0.333,0,0,0,.485,0l9.276-9.719h0.07a0.664,0.664,0,0,1,.969,0l0.969,0.979a0.681,0.681,0,0,1,0,.979h0L307.715,223.79a0.664,0.664,0,0,1-.969,0l-5.4-5.874Z" transform="translate(-301 -210.031)"/>
+</svg>

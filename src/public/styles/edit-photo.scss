@@ -1,0 +1,104 @@
+@import './variable.scss';
+@import './mixin.scss';
+
+.edit-photo{
+    display: block;
+    background-color: $edit_photo_bg;
+    border: em(01px) solid;
+    border-color: $edit_photo_border;
+    padding: em(15px);
+    min-height: em(355px);
+    @include mq(sm) {
+        height: auto;
+        margin-bottom: em(20px);
+    }
+    @include mq(md) {
+        margin-bottom: em(20px);
+    }
+    .thumb{
+        width: 100%;
+        display: block;
+        margin-bottom: em(25px);
+        overflow: hidden;
+        .avatar{
+            margin: 0 auto;
+            border: em(10px) solid;
+            border-color: $edit_photo_thumb_border;
+            @include box-shadow(0, 0, 1px, 2px, rgba(242,242,242,1));
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            div{
+                width: 100% !important;
+                height: 100% !important;
+                margin-bottom: 0px !important;
+                canvas{
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+    .choose-file{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .zoomDiv{
+        width: 100%;
+        margin-bottom: 15px;
+        label{
+            display: block;
+        }
+    }
+    .rotate{
+        margin-bottom: 15px;
+        label{
+            display: block;
+        }
+        .btn{
+            padding: 5px 10px;
+        }
+    }
+    .submit-action{
+        .btn{
+            padding: 5px 10px;
+        }
+    }
+    .wrap{
+        width: 100%;
+    }
+    .edit-photo-name{
+        display: block;
+        width: 100%;
+        text-align: center;
+        .name{
+            display: block;
+            font-size: em(22px);
+            color: $edit_photo_name;
+            margin: 0 auto;
+            font-weight: 700;
+            @include ellipsis(160px);
+        }
+        .action{
+            display: block;
+            color: $edit_photo_action_text;
+            .fa{
+                display: inline-block;
+                margin-right: em(08px);
+                color: $edit_photo_action_text;
+            }
+            .text{
+                color: $edit_photo_action_text;
+                font-size: em(16px);
+            }
+            button{
+                &.text{
+                    background-color: transparent;
+                    border: 0px;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

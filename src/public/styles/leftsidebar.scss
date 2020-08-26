@@ -1,0 +1,175 @@
+@import './variable.scss';
+@import './mixin.scss';
+@import './themevar.scss';
+.leftsidebar{
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: $zindex-leftsidebar;
+	width: $leftsidebar_width;
+	@include transition(all 0.3s ease-in-out);
+	.wrappers{
+		height: 100%;
+		@include themify($themes) {
+		    background-color: themed('leftsidebarBg');
+		}
+	}
+	.main-logo{
+		background-color: #000000;
+		display: block;
+		text-align: center;
+		padding: 0 em(15px);
+		height: $leftsidebar_height;
+		position: relative;
+		.logo{
+			padding: 0;
+			color: #fff;
+			img {
+				margin-right: 10px;
+				height: 60px;
+			}
+		}
+		.small-logo{
+			position: absolute;
+			left: em(25px);
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			display: flex;
+    	align-items: center;
+		}
+	}
+}
+.leftmenu{
+	height: 100%;
+	padding: 20px 0 65px;
+	background-color: #1f1f1f;
+
+	> ul{
+		padding: 0;
+		margin: 0;
+		overflow: auto;
+		height: calc(100% - #{em(20px)});
+		background-color: #1f1f1f;
+		li{
+			list-style: none;
+			margin-bottom: em(05px);
+			position: relative;
+			@include transition(all 0.5s ease-in-out);
+			a{
+				display: flex;
+				align-items: center;
+				border: 0px;
+				border-left: em(04px) solid;
+				padding: em(10px) em(30px);
+				font-weight: $fontWeight-semibold;
+				line-height: normal;
+				position: relative;
+				border-color: $leftmenu_border_color;
+				//border-color: $base_color;
+				text-decoration: none;
+				cursor: pointer;
+				//background-color: $leftmenu_hover_bg;
+				.icon{
+					display: inline-block;
+					vertical-align: middle;
+					.imgsvg{
+						width: em(22px);
+						width: em(22px);
+						path {
+							fill: $leftmenu_icon;
+						}
+					}
+				}
+				.text{
+					display: inline-block;
+					color: $leftmenu_text;
+					position: absolute;
+					left: em(75px);
+					top: 50%;
+					bottom: 0;
+					transform: translateY(-50%);
+
+					display: table;
+				}
+				.fa{
+					position: absolute;
+					right: em(15px);
+					top: em(15px);
+					color: $leftmenu_fa;
+					@include transition(all 0.5s ease-in-out);
+					@include transform(rotate(#{180}deg));
+				}
+				&.collapsed, &.link{
+					background-color: #1f1f1f;
+					border-color: #1f1f1f;
+					.fa{
+						@include transform(rotate(#{0}deg));
+					}
+				}
+				&.active{
+					border-color: $base_color;
+					.text{
+						color: $leftmenu_active_text;
+					}
+					.fa{
+						color: $leftmenu_active_text;
+					}
+					.icon{
+						.imgsvg{
+							path{
+								fill: $leftmenu_active_text;
+							}
+						}
+					}
+				}
+				&[aria-expanded="true"]{
+					background-color: $leftmenu_hover_bg;
+					border-color: transparent;
+				}
+			}
+			&:hover{
+				background-color: $leftmenu_hover_bg;
+				a{
+					border-color: $base_color;
+				}
+				.text{
+					color: $leftmenu_active_text;
+				}
+				.fa{
+					color: $leftmenu_active_text;
+				}
+			}
+		}
+	}
+	.sub-menu{
+		background-color: $leftmenu_hover_bg;;
+		ul{
+			padding: em(10px) 0;
+			margin: 0 0 0 em(45px);
+			overflow: inherit;
+			height: auto;
+			li{
+				list-style: none;
+				display: block;
+				margin-bottom: 0;
+				a{
+					display: block;
+					border-color: transparent;
+					padding: em(10px) em(30px);
+					font-weight: $fontWeight-semibold;
+					line-height: normal;
+					color: $leftmenu_text;
+					background-color: transparent;
+					&:hover{
+						color: $leftmenu_active_text;
+					}
+					&.active{
+						color: $leftmenu_active_text;
+					}
+				}
+			}
+		}
+	}
+}

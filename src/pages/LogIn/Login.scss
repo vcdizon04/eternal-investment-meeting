@@ -1,0 +1,157 @@
+@import '../../public/styles/variable.scss';
+@import '../../public/styles/mixin.scss';
+/* login screen */
+.login-wrap{
+	background-color: $authentication_bg;
+	max-width: em(350px);
+	width: 100%;
+	margin: em(100px) auto em(15px);
+	padding: em(40px) em(50px);
+	position: relative;
+	@include border-radius(5px);
+	@include mq(sm) {
+		margin: 0px auto;
+		padding: em(20px);
+	}
+	.logo{
+		display: block;
+		text-align: center;
+        margin-bottom: em(44px);
+        
+        img {
+            height: 120px;        
+        }
+	}
+	label.label{
+		font-size: em(14px);
+		color: $authentication_label;
+		font-weight: 600;
+		line-height: normal;
+		text-transform: uppercase;
+		margin-bottom: em(13px);
+	}
+	.forgot-keepme{
+	    padding: .35714em 0 0;
+    	margin: 0 0 1.71429em;
+		.forgot-link{
+			display: block;
+			font-size: em(13px);
+			line-height: normal;
+			padding-top: em(03px);
+			color: $authentication_forgot_link;
+			a{
+				color: $authentication_forgot_link;
+				&:hover, &:focus{
+					color: $authentication_forgot_link_hover;
+				}
+			}
+		}
+	}
+	.keep-me{
+		text-align: right;
+		label{
+			margin: 0;
+			position: relative;
+			cursor: pointer;
+			.text{
+				display: inline-block;
+				position: relative;
+				padding-left: em(20px);
+				span{
+					font-size: em(13px);
+					color: $authentication_keep_me_text;
+					border-bottom: em(01px) solid;
+					border-color: $authentication_keep_me_text;
+				}
+			}
+		}
+	}
+	.check-box {
+		.text{
+			&:before{
+				top: em(05px);
+			}
+		}
+	}
+	.form-group{
+		.form-error{
+			font-size: em(13px);
+			display: block;
+			margin-top: em(05px);
+		}
+	}
+	.input-group{
+		width: 100%;
+		border: em(01px) solid;
+		border-color: $authentication_input_border;
+		background-color: $authentication_input_bg;
+		@include border-radius(5px);
+		padding: 0;
+		@include transition(all 0.5s ease-in-out);
+		.input-group-text{
+			border: 0;
+			background-color: transparent;
+		}
+	}
+	.form-control{
+		border: em(01px) solid;
+		border-color: transparent;
+		padding-left: 0;
+		background-color: $authentication_input_bg;
+		color: $authentication_input_text;
+		font-size: em(14px);
+		@include placeholder {
+			color: $authentication_input_text;
+		}
+		&:focus{
+			outline: none;
+			box-shadow: none;
+			border: 0;
+			padding: 0;
+		}
+	}
+	.action{
+		display: block;
+		border-top: em(01px) solid;
+		border-color: $authentication_action_border;
+		padding-top: em(22px);
+		.submit{
+			display: block;
+			width: 100%;
+			background-color: $authentication_action_submit_bg;
+			color: $authentication_action_submit_text;
+			font-size: em(15px);
+			font-weight: 600;
+			border: 0;
+			padding: em(12px) em(15px);
+			line-height: normal;
+			cursor: pointer;
+			margin-bottom: em(15px);
+			@include transition(all 0.8s ease-in-out);
+			@include border-radius(5px);
+			&:hover, &:focus{
+				background-color: $authentication_action_submit_bg_hover;
+				outline: none;
+				box-shadow: none;
+			}
+		}
+		.signup{
+			display: block;
+			font-size: em(13px);
+			color: $authentication_signup_text;
+			font-weight: 400;
+			text-align: center;
+			line-height: normal;
+			a{
+				font-weight: 600;
+				color: $authentication_signup_text;
+				margin-left: em(03px);
+				display: inline-block;
+				@include transition(all 0.5 ease-in-out);
+				&:hover, &:focus{
+					color: $authentication_signup_text_hover;
+				}
+			}
+		}
+	}
+}

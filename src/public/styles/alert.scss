@@ -1,0 +1,15 @@
+.alert{
+	font-size: em(14px);
+	.close{
+		height: 100%;
+		margin-top: em(-2px);
+		cursor: pointer;
+		span{
+			line-height: 1;
+		}
+		&:focus{
+			outline: none;
+			box-shadow: none;
+		}
+	}
+}

@@ -1,0 +1,151 @@
+.main{
+	.header-container {
+		width: 100%;
+		&.fixed{
+			position: fixed;
+			left: $leftsidebar_width;
+			top: 0;
+			width: calc(100% - #{$leftsidebar_width});
+			@include transition(all 0.3s ease-in-out);
+			@include mq(sm) {
+				width: 100%;
+				left: 0;
+			}
+		}
+	}
+	&.left-mini{
+		.header-container {
+			&.fixed{
+				width: calc(100% - #{$main_panel_mini});
+				left: $main_panel_mini;
+			}
+		}
+		.leftsidebar{
+			width: $main_panel_mini;
+			.logo{
+				opacity: 0;
+				visibility: hidden;
+				@include transition(all 0.3s ease-in-out);
+			}
+			.small-logo{
+				opacity: 1;
+				visibility: visible;
+				@include transition(all 0.3s ease-in-out);
+			}
+			.leftmenu {
+				ul {
+					li {
+						.text {
+	                        opacity: 0;
+	                        visibility: hidden;
+	                        @include transition(all 0.3s ease-in-out);
+	                    }
+	                    .sub-menu {
+	                    	display: none;
+	                    }
+	                    .icon{
+	                    	&.icon-down-arrow{
+	                    		display: none;
+	                    	}
+	                    }
+						a.collapsed {
+							.fa {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+			&:hover{
+				width: $main_panel;
+				@include transition(all 0.3s ease-in-out);
+				.logo{
+					opacity: 1;
+					visibility: visible;
+					@include transition(all 0.3s ease-in-out);
+				}
+				.small-logo{
+					opacity: 0;
+					visibility: hidden;
+					@include transition(all 0.3s ease-in-out);
+				}
+				.leftmenu {
+					ul {
+						li {
+							.text {
+		                        opacity: 1;
+		                        visibility: visible;
+		                        @include transition(all 0.3s ease-in-out);
+		                    }
+		                    .sub-menu {
+		                    	opacity: 0;
+		                    	visibility: hidden;
+		                    	&.show{
+		                    		opacity: 1;
+		                    		visibility: visible;
+		                    		display: block;
+		                    	}
+		                    }
+		                    .icon{
+		                    	&.icon-down-arrow{
+		                    		display: inline-block;
+		                    	}
+		                    }
+							a.collapsed {
+								.fa {
+									display: block;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		.main-panel {
+			width: calc(100% - #{$main_panel_mini});
+			padding-left: 0;
+		}
+	}
+	&.left-open{
+		.leftsidebar{
+			@include mq(sm) {
+				left: 0px;
+				@include transition(all 0.3s ease-in-out);
+				z-index: 2000;
+			}
+		}
+		.main-panel {
+			// left: 0;
+			// position: absolute;
+			// @include transition(all 0.3s ease-in-out);
+			&:before{
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.7);
+				z-index: 1400;
+			}
+		}
+	}
+	.leftsidebar{
+		@include mq(sm) {
+			left: -100%;
+			@include transition(all 0.3s ease-in-out);
+		}
+		.small-logo{
+			opacity: 0;
+			visibility: hidden;
+			@include transition(all 0.3s ease-in-out);
+		}
+	}
+	.main-panel {
+		@include mq(sm) {
+			padding-left: 0px;
+			width: 100%;
+			@include transition(all 0.3s ease-in-out);
+		}
+	}
+}

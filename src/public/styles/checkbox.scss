@@ -1,0 +1,106 @@
+.check-box{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    input{
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .text{
+        position: relative;
+        &:before{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: em(0px);
+            width: em(15px);
+            height: em(15px);
+            border: em(01px) solid;
+            border-color: $checkbox_border;
+            background-color: $checkbox_bg;
+            @include border-radius(3px);
+        }
+    }
+}
+.check-box input[type="checkbox"]:checked ~ .text:before{
+    background: $checkbox_active url('#{$svg_path}/checked-white.svg') no-repeat;
+    background-size: 80% 80%;
+    background-position: center center;
+    border: 0;
+}
+.check-box input[type="checkbox"]:indeterminate ~ .text:before{
+    background: $checkbox_active url('#{$svg_path}/minus.svg') no-repeat;
+    background-size: 80% 80%;
+    background-position: center center;
+    border: 0;
+}
+
+.custom-checkbox{
+    position: relative;
+    padding-left: em(22px);
+    margin-right: em(28px);
+    cursor: pointer;
+    &.custom-control-inline{
+        display: inline-block;
+        @include mq(x) {
+            display: block;
+        }
+    }
+    .custom-control-input{
+        display: inline-block;
+        margin: 0px;
+        line-height: normal;
+        &:focus{
+            outline: none;
+        }
+    }
+    .custom-control-label{
+        display: inline-block;
+        color: $checkbox_label;
+        &:focus{
+            outline: none;
+        }
+        &:before{
+            left: em(-22px);
+        }
+        &:after{
+            left: em(-22px);
+        }
+    }
+    &:focus{
+        outline: none;
+    }
+}
+.custom-control-input:checked ~ .custom-control-label::before{
+    color: $checkbox_active_color;
+    border-color: $checkbox_active;
+    background-color: $checkbox_active;
+    outline: none;
+}
+
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    border-color: lighten($checkbox_active, 35%);
+    background-color: lighten($checkbox_active, 35%);
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: lighten($checkbox_active, 35%);
+    box-shadow: 0 0 0 0.2rem rgba(241, 90, 36, 0.25);
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    border-color: lighten($checkbox_active, 35%);
+    box-shadow: 0 0 0 0.2rem rgba(241, 90, 36, 0.25);
+}
+
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+    border-color: $checkbox_active;
+    background-color: $checkbox_active;
+}
+
+.custom-control-label::after {
+    background-size: 52%;    
+}

@@ -1,0 +1,44 @@
+.dynamic-loader {
+	background-color: rgba(255, 255, 255, 0.3);
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 999;
+
+	@include max-width(767px) {
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	.loader-spin {
+		width: 50px;
+    height: 50px;
+    margin: auto;
+    display: block;
+	}
+}
+
+.full-screen-loader {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.3);
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 999999;
+
+	.loader-spin {
+		width: 50px;
+    height: 50px;
+    margin: auto;
+    display: block;
+	}
+}
