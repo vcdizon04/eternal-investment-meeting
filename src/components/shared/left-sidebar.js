@@ -112,22 +112,28 @@ export default class LeftSidebar extends Component {
 									<span className="text">Metting Attendance</span>
 								</NavLink>
 							</li>
+
+							{
+								(this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && (
+									<li className="level_0">
+										<NavLink to="/absents" activeClassName='active' className="link">
+											<span className="icon icon-games">
+												<img src={gamesSvg} className="imgsvg" alt="games" />
+											</span>
+											<span className="text">Absents</span>
+											{/* <span className="icon icon-down-arrow"><FontAwesomeIcon icon={faChevronDown} className="fa" /></span> */}
+										</NavLink>
+										
+										{/* <div className="collapse sub-menu" id="game_collapse_1" data-parent="#accordion">
+											<ul>
+												<li><NavLink to="/games" activeClassName='active' className="link">All Games</NavLink></li>
+											</ul>
+										</div> */}
+									</li>
+								)
+							}
 						
-							<li className="level_0">
-								<NavLink to="/games" activeClassName='active' className="link">
-									<span className="icon icon-games">
-										<img src={gamesSvg} className="imgsvg" alt="games" />
-									</span>
-									<span className="text">Roll Call</span>
-									{/* <span className="icon icon-down-arrow"><FontAwesomeIcon icon={faChevronDown} className="fa" /></span> */}
-								</NavLink>
-								
-								{/* <div className="collapse sub-menu" id="game_collapse_1" data-parent="#accordion">
-									<ul>
-										<li><NavLink to="/games" activeClassName='active' className="link">All Games</NavLink></li>
-									</ul>
-								</div> */}
-							</li>
+							
 						
 						</ul>
 					</div>
