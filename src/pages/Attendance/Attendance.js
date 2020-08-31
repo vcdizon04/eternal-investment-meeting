@@ -24,7 +24,9 @@ class Attendance extends Component {
             isLoading: false,
             meetingState: 'none',
             rollCallState: null,
-            isMeetingTriggered: false
+            isMeetingTriggered: false,
+            origUsers: [],
+            filters: []
         }
     }
 
@@ -211,6 +213,37 @@ class Attendance extends Component {
         })
     }
 
+    handleFilterChange = e => {
+        const filters = this.state.filters;
+        console.log(e.target.name, e.target.value)
+        let users = this.state.origUsers;
+        if(!(filters.findIndex(filter => filter.name == e.target.name && filter.value == e.target.value) > -1)) {
+            const index = filters.findIndex(filter => filter.name == e.target.name);
+            if(index > -1) {
+                filters.splice(index, 1)
+            }
+            filters.push({ name: e.target.name, value: e.target.value });
+            this.setState({
+                filters
+            })
+        }
+        users = users.filter(user => {
+            let isMatch = true;
+            filters.forEach(filter => {
+                if(filter.value == 'all') return;
+                if(filter.name == 'isLate' || filter.name == 'rollCall') filter.value = JSON.parse(filter.value)
+                if(!(user[filter.name] == filter.value)) {
+                    isMatch = false;
+                }
+            })
+            return isMatch
+        })
+        console.log(users)
+        this.setState({
+            users
+        })
+    }
+
     async init() {
         this.setState({
             isLoading: true
@@ -221,55 +254,101 @@ class Attendance extends Component {
             this.setState({
                 isLoading: false,
                 users: res.data.data.users,
+                origUsers: [...res.data.data.users],
                 meetingState: res.data.data.state,
-                isMeetingTriggered: res.data.data.isMeetingTriggered
-            })
-        })
-        this.Socket.on(`meeting/state`, state => {
-            console.log(state)
-            this.setState({
-                meetingState: state,
-                isMeetingTriggered: true
-            })
-        });
-
-        this.Socket.on(`meeting/users`, users => {
-            console.log(users)
-            this.setState({
-                users: users
-            })
-        });
-
-        this.Socket.on(`meeting/rollcall/state`, state => {
-            console.log(state)
-            if(!(this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && state) {
-                Swal.fire({
-                    title: "Roll Call",
-                    text: "Are you still there?",
-                    icon: "info",
-                    confirmButtonText: "Yes"
-                }).then((data) => {
-                    console.log(data);
-                    if(data.value) {
-                        request('PUT', `/meeting/roll-call/users/${this.context.user.id}`, {}, true)
-                        .then(res => {
-                            console.log(res);
-                            this.setState({
-                                rollCalling: false
-                            })
-                            Swal.fire(
-                                'Success',
-                                res.data.message,
-                                'success'
-                            )
-                        })
-                    }
+                isMeetingTriggered: res.data.data.isMeetingTriggered,
+                rollCallState: res.data.data.rollCallState
+            }, () => {
+                
+            this.Socket.on(`meeting/state`, state => {
+                console.log(state)
+                this.setState({
+                    meetingState: state,
+                    isMeetingTriggered: true,
                 })
+            });
+    
+            this.Socket.on(`meeting/users`, users => {
+                console.log(users)
+                this.setState({
+                    users: users,
+                    origUsers: [...users]
+                })
+            });
+
+            const index = this.state.users.findIndex(user => user.id == this.context.user.id);
+            console.log('index: ', index)
+    
+            this.Socket.on(`meeting/rollcall/state`, state => {
+                const index = this.state.users.findIndex(user => user.id == this.context.user.id);
+                console.log('index: ', index)
+                console.log(state)
+                if(!(this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && state && index > -1 ) {
+                   if(!this.state.users[index].rollCall) {
+                    Swal.fire({
+                        title: "Roll Call",
+                        text: 'Roll Call is now running. You can now stamp in "PRESENT".',
+                        icon: "info",
+                        confirmButtonText: "PRESENT"
+                    }).then((data) => {
+                        console.log(data);
+                        if(data.value) {
+                            request('PUT', `/meeting/roll-call/users/${this.context.user.id}`, {}, true)
+                            .then(res => {
+                                console.log(res);
+                                this.setState({
+                                    rollCalling: false
+                                })
+                                Swal.fire(
+                                    'Success',
+                                    res.data.message,
+                                    'success'
+                                )
+                            })
+                        }
+                    })
+                   }
+                }
+                this.setState({
+                    rollCallState: state
+                })
+
+                if(!state) {
+                    Swal.close();
+                }
+            });
+
+            if(res.data.data.rollCallState && index > -1) {
+                if( !this.state.users[index].rollCall ) {
+                    Swal.fire({
+                        title: "Roll Call",
+                        text: "Are you still there?",
+                        icon: "info",
+                        confirmButtonText: "Yes"
+                    }).then((data) => {
+                        console.log(data);
+                        if(data.value) {
+                            request('PUT', `/meeting/roll-call/users/${this.context.user.id}`, {}, true)
+                            .then(res => {
+                                console.log(res);
+                                this.setState({
+                                    rollCalling: false
+                                })
+                                Swal.fire(
+                                    'Success',
+                                    res.data.message,
+                                    'success'
+                                )
+                            })
+                        }
+                    })
+                }
+              
             }
-            this.setState({
-                rollCallState: state
             })
-        });
+
+        })
+      
     }
 
     componentDidMount() {
@@ -278,9 +357,36 @@ class Attendance extends Component {
     
     render() {
 
+        const teamOptions = [];
+        const employeeLevelOptions = [];
+        const transitionOptions = [];
+        const scheduleOptions = [];
+        const statusOptions = [];
+        this.state.origUsers.forEach(user => {
+            if( !(teamOptions.indexOf(user.team) > -1) ) {
+                teamOptions.push(user.team)
+            }
+            if( !(employeeLevelOptions.indexOf(user.employee_level) > -1) ) {
+                employeeLevelOptions.push(user.employee_level)
+            }
+            if( !(transitionOptions.indexOf(user.transition) > -1) ) {
+                transitionOptions.push(user.transition)
+            }
+            if( !(scheduleOptions.indexOf(user.schedule) > -1) ) {
+                scheduleOptions.push(user.schedule)
+            }
+            if( !(statusOptions.indexOf(user.status) > -1) ) {
+                statusOptions.push(user.status)
+            }
+        });
+
         const columns = [
             {
-                Header: 'Full Name',
+                Header: (
+                    <React.Fragment>
+                        <p>Full Name</p>
+                    </React.Fragment>
+                ),
                 Cell: row => {
                     return (
                         <span>
@@ -290,7 +396,17 @@ class Attendance extends Component {
                 }
             },
             {
-                Header: 'Team',
+                Header: (
+                    <React.Fragment>
+                        <p className="mb-2">Team</p>
+                        <select name="team" onChange={this.handleFilterChange} className="custom-select">
+                        <option value="all">All</option>
+                        {
+                            teamOptions.map(team => <option value={team}>{team}</option>)
+                        }
+                        </select>
+                    </React.Fragment>
+                ),
                 Cell: row => {
                     return (
                         <span>
@@ -300,40 +416,98 @@ class Attendance extends Component {
                 }
             },
             {
-                Header: 'Employee Level',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Employee Level</p>
+                    <select name="employee_level" onChange={this.handleFilterChange} className="custom-select">
+                    <option value="all">All</option>
+                    {
+                        employeeLevelOptions.map(employee_level => <option value={employee_level}>{employee_level}</option>)
+                    }
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span>{row.original.employee_level}</span>
                 ),
             },
             {
-                Header: 'Transition',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Transition</p>
+                    <select name="transition" onChange={this.handleFilterChange} className="custom-select">
+                    <option value="all">All</option>
+                    {
+                        transitionOptions.map(transiiton => <option value={transiiton}>{transiiton}</option>)
+                    }
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span>{row.original.transition }</span>
                 ),
             },
             {
-                Header: 'Schedule',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Schedule</p>
+                    <select name="schedule" onChange={this.handleFilterChange} className="custom-select">
+                    <option value="all">All</option>
+                    {
+                        scheduleOptions.map(schedule => <option value={schedule}>{schedule}</option>)
+                    }
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span>{row.original.schedule }</span>
                 ),
             },
 
             {
-                Header: 'Status',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Status</p>
+                    <select name="status" onChange={this.handleFilterChange} className="custom-select">
+                    <option value="all">All</option>
+                    {
+                        statusOptions.map(status => <option value={status}>{status}</option>)
+                    }
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span>{row.original.status }</span> 
                 ),
             },
 
             {
-                Header: 'Late',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Late</p>
+                    <select name="isLate" onChange={this.handleFilterChange} className="custom-select">
+                        <option value="all">All</option>
+                        <option value="true">Late</option>
+                        <option value="false">Ontime</option>
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span className={row.original.isLate ? 'text-warning' : 'text-success'}>{row.original.isLate ? 'Late' : 'On Time' }</span>
                 ),
             },
 
             {
-                Header: 'Roll Call',
+                Header: (
+                <React.Fragment>
+                    <p className="mb-2">Roll Call</p>
+                    <select name="rollCall" onChange={this.handleFilterChange} className="custom-select">
+                        <option value="all">All</option>
+                        <option value="true">Active</option>
+                        <option value="false">Not Active</option>
+                    </select>
+                </React.Fragment>
+                ),
                 Cell: row => (
                     <span>{row.original.rollCall && <span className="text-success"> Active </span> }</span>
                 ),
@@ -385,18 +559,20 @@ class Attendance extends Component {
                                             </button>
                                             {(this.state.isLoading) && <Loader />}
                                             <ReactTable
-                                                PaginationComponent={Pagination}
+                                                // PaginationComponent={Pagination}
+                                                showPagination={false}
                                                 data={this.state.users}
                                                 minRows={5}
                                                 columns={columns}
                                                 noDataText={this.state.isLoading ? '' : "No data available right now."}
                                                 // defaultPageSize={this.state.pageSize}
-                                                pageSizeOptions={[10, 25, 50, 100]}
+                                                // pageSizeOptions={[10, 25, 50, 100]}
                                                 resizable={true}
                                                 // onPageChange={(index) => this.handlePageChange(index)}
                                                 // onPageSizeChange={(size) => this.handlePageSizeChange(size)}
                                                 // getTheadThProps={(state, rowInfo, column, instance) => this.handleThProps(state, rowInfo, column, instance)}
                                             />
+                                            <p className="mt-2">{this.state.users.length} entries</p>
                                         </React.Fragment>
                                     ) : (
                                         <p className="text-center font-weight-bold">Please wait the host to start the meeting</p>
@@ -408,7 +584,8 @@ class Attendance extends Component {
                                     <React.Fragment>
                                     <button onClick={this.hanldeStartLateEntry} className="btn btn-warning mb-4">Late Entry</button>
                                     <ReactTable
-                                        PaginationComponent={Pagination}
+                                        // PaginationComponent={Pagination}
+                                        showPagination={false}
                                         data={this.state.users}
                                         minRows={5}
                                         columns={columns}
@@ -420,6 +597,8 @@ class Attendance extends Component {
                                         // onPageSizeChange={(size) => this.handlePageSizeChange(size)}
                                         // getTheadThProps={(state, rowInfo, column, instance) => this.handleThProps(state, rowInfo, column, instance)}
                                     />
+                                        <p className="mt-2">{this.state.users.length} entries</p>
+
                                     </React.Fragment>
                                 ) : (
                                     <p className="text-center font-weight-bold">Please wait the host to start the meeting</p>
@@ -445,7 +624,8 @@ class Attendance extends Component {
                                                 
                                         }
                                          <ReactTable
-                                            PaginationComponent={Pagination}
+                                            // PaginationComponent={Pagination}
+                                            showPagination={false}
                                             data={this.state.users}
                                             minRows={5}
                                             columns={columns}
@@ -457,7 +637,7 @@ class Attendance extends Component {
                                             // onPageSizeChange={(size) => this.handlePageSizeChange(size)}
                                             // getTheadThProps={(state, rowInfo, column, instance) => this.handleThProps(state, rowInfo, column, instance)}
                                         />
-
+                                        <p className="mt-2">{this.state.users.length} entries</p>
                                        
                                     </React.Fragment>
 
@@ -469,7 +649,7 @@ class Attendance extends Component {
 
                                                     this.state.meetingState !== 'end' && (
                                                     <React.Fragment>
-                                                        <p className="font-weight-bold mb-3">Meeting is starting now, please stamp</p>
+                                                        <p className="font-weight-bold mb-3"> Attendance is now open. You can now click "STAMP IN"</p>
                                                         <button onClick={this.handleStamp} className="btn btn-orange">
                                                             {
                                                                 this.state.stamping ? (
@@ -477,7 +657,7 @@ class Attendance extends Component {
                                                                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
                                                                         Loading...
                                                                     </React.Fragment>
-                                                                ) : 'Stamp'
+                                                                ) : 'STAMP IN'
                                                             }
                                                         </button>
                                                     </React.Fragment>
