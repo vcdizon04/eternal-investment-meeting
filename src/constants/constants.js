@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import io, { Manager } from 'socket.io-client'
 
 
-export const API_URL = "http://meeting.eternal-investment.com/api";
+export const API_URL = "http://meeting.eternal-investment.com:3000/api";
 // export const PROFILE_IMAGE_BASE_URL = "http://video.devapi.efficialtec.com/storage/profileimages";
 
 // export const API_URL = "http://localhost:8080/api";
