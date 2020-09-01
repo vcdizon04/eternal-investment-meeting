@@ -3,10 +3,10 @@ import Cookies from 'js-cookie';
 import io, { Manager } from 'socket.io-client'
 
 
-// export const API_URL = "http://video.devapi.efficialtec.com/v1";
+export const API_URL = "http://meeting.eternal-investment.com/api";
 // export const PROFILE_IMAGE_BASE_URL = "http://video.devapi.efficialtec.com/storage/profileimages";
 
-export const API_URL = "http://localhost:8080/api";
+// export const API_URL = "http://localhost:8080/api";
 export const PROFILE_IMAGE_BASE_URL = "http://127.0.0.1:8001/storage/profileimages";
 
 export const request = (method, url, data = null, isNeedAuthorization = false) => {
@@ -33,7 +33,9 @@ export const getUser = () => {
 }
 
 
-const SOCKET_URL = "http://localhost:8080";
+// const SOCKET_URL = "http://localhost:8080";
+
+const SOCKET_URL = "http://meeting.eternal-investment.com:3000";
 
 export const socket = () => io.connect(SOCKET_URL, {
     query: `token=${getToken()}`,
