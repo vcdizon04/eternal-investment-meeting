@@ -11,6 +11,7 @@ class Absents extends Component {
     currentUsername = '';
     constructor(props) {
         super(props);
+        this.remarksRef = React.createRef();
         this.state = {
             selected: {},
 			pageSize: 10,
@@ -206,6 +207,7 @@ class Absents extends Component {
         //     [e.target.name]: e.target.value
         // })
         this[e.target.name] = e.target.value;
+    
     }
 
     handleAddRemarks = e => {
@@ -221,8 +223,10 @@ class Absents extends Component {
         .then(res => {
             console.log(res);
             this.setState({
-                addRemarkLoading: false
+                addRemarkLoading: false,
             })
+            this.remarks = "";
+            this.currentUsername = "";
             Swal.fire(
                 'Success',
                 res.data.message,
@@ -231,10 +235,13 @@ class Absents extends Component {
         })
     }
 
-    addRemark = username => e => {
+    addRemark = (username, remarks) => e => {
         this.currentUsername = username;
-        this.remarks = '';
+        this.remarks = remarks ? remarks : '';
+        this.remarksRef.current.value =  this.remarks;
         console.log('usename:', username)
+        console.log('remarks:', remarks)
+        console.log(this.remarksRef.current)
     }
 
     componentDidMount() {
@@ -373,7 +380,7 @@ class Absents extends Component {
                 </React.Fragment>
                 ),
                 Cell: row => (
-                row.original.remarks ? <span>{  row.original.remarks }</span> : <button data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username)} className="btn btn-orange">Add Remarks</button>
+                row.original.remarks ? <button  data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username, row.original.remarks)} className="btn btn-link text-dark" title="Edit remarks">{  row.original.remarks }</button> : <button data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username)} className="btn btn-orange">Add Remarks</button>
                 )
             },
 
@@ -441,7 +448,7 @@ class Absents extends Component {
                         <div className="form-group">
                             <label className="label">Remarks</label>
                             <div className="input-effect-1">
-                                <input name="remarks" onChange={this.handleChange} name="remarks" type="text" className="form-control" placeholder="Enter reason" />
+                                <input name="remarks" ref={this.remarksRef} onChange={this.handleChange} name="remarks" type="text" className="form-control" placeholder="Enter reason" />
                                 <span className="focus-border" />
                             </div>
                         </div>

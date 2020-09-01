@@ -17,7 +17,7 @@ export const request = (method, url, data = null, isNeedAuthorization = false) =
         headers: {
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
-            'Authorization': isNeedAuthorization ?  `Bearer ${getToken()}` : null
+            'Token': isNeedAuthorization ?  `${getToken()}` : null
         }
     })
 }

@@ -3,44 +3,52 @@ import emailSvg from '../../public/svg/email.svg';
 import passwordSvg from '../../public/svg/password.svg';
 import { Link } from 'react-router-dom';
 import Logo from '../../public/images/logo.png';
-import './Login.scss';
 import '../../public/styles/authentication.scss';
 import { request } from '../../constants/constants';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 
-class LogIn extends Component {
+class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: ''
+            password: '',
+            password_confirmation: ''
         }
     }
-    
+
     handleSubmit = e => {
         e.preventDefault();
         this.setState({
             isLoading: true
         })
         const data = {
-            username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            password_confirmation: this.state.password_confirmation
         }
-        request('POST', '/auth/login', data).then(res => {
+        request('POST', '/auth/reset', data, true).then(res => {
             console.log(res)
+            
             this.setState({
                 isLoading: false
             })
-            Cookies.set('user', res.data);
-            window.location.href = "/"
+
+            Swal.fire(
+                'Success',
+                res.data.message,
+                'success'
+            ).then(() => {
+                Cookies.remove('user');
+                window.location.href = "/"
+            })
+            
         }).catch(err => {
             this.setState({
                 isLoading: false
             })
             Swal.fire(
                 'Error',
-                err.response.data.message,
+                'There was an error please check your password',
                 'error'
             );
             console.error(err);
@@ -52,7 +60,7 @@ class LogIn extends Component {
             [e.target.name]: e.target.value
         })
     }
-
+    
     render() {
         return (
             <div className="authentication">
@@ -64,17 +72,7 @@ class LogIn extends Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="signin">
-                            <label className="label">Sign In</label>
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text">
-                                            <span className="icon icon-email"><img src={emailSvg} className="imgsvg" alt="email" /></span>
-                                        </span>
-                                    </div>
-                                <input type="text" onChange={this.handleChange} name="username" value={this.state.username} className="form-control" placeholder="Username" />
-                                </div>
-                            </div>
+                            <label className="label">Reset your password</label>
                             <div className="form-group">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
@@ -87,6 +85,19 @@ class LogIn extends Component {
                                     <input name="password" onChange={this.handleChange} value={this.state.password} type="password" className="form-control" placeholder="Password" />
                                 </div>
                             </div>
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">
+                                            <span className="icon icon-pass">
+                                                <img src={passwordSvg} className="imgsvg" alt="password" />
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <input name="password_confirmation" onChange={this.handleChange} value={this.state.password_confirmation} type="password" className="form-control" placeholder="Confirm Password" />
+                                </div>
+                            </div>
+                          
                         </div>
                         <div className="forgot-keepme">
                             <div className="row no-gutters">
@@ -95,14 +106,14 @@ class LogIn extends Component {
                                         <Link to="/forgot-password">Forgot Password</Link>
                                     </div>
                                 </div> */}
-                                <div className="col-7">
+                                {/* <div className="col-7">
                                     <div className="keep-me">
                                         <label htmlFor="signedin" className="check-box">
                                             <input type="checkbox" name="signedin" id="signedin" />
                                             <span className="text"><span>Keep Me Signed in</span></span>
                                         </label>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="action">
@@ -113,7 +124,7 @@ class LogIn extends Component {
                                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
                                         Loading...
                                     </React.Fragment>
-                                ) : 'Signin'
+                                ) : 'Reset Password'
                             }
                         </button>
 
@@ -127,4 +138,4 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn;
+export default ResetPassword;

@@ -9,11 +9,13 @@ class ProtectedRoute extends Component {
         console.log(this.context.user)
     }
     render() {
-        if (!this.context.user) {
+        if (!this.context.user) 
+        {
             return <Redirect to={'/login' + (this.props.path ? `?redirectPath=${this.props.path}` : '')} />
-        } else {
-            return <Route {...this.props}></Route>
-        }
+        } 
+        if(this.context.user.change_passwod) return <Redirect to={'/reset-password' + (this.props.path ? `?redirectPath=${this.props.path}` : '')} />
+        return <Route {...this.props}></Route>
+        
     }
 }
 
