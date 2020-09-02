@@ -222,6 +222,7 @@ class Absents extends Component {
         request('POST', '/meeting/absents/remarks', data, true)
         .then(res => {
             console.log(res);
+            this.init();
             this.setState({
                 addRemarkLoading: false,
             })
@@ -242,6 +243,31 @@ class Absents extends Component {
         console.log('usename:', username)
         console.log('remarks:', remarks)
         console.log(this.remarksRef.current)
+    }
+
+    handleExportCsv = e => {
+        let csv = "Full Name,Team,Employee Level,Transition,Schedule,Status,Late,Remarks\n";
+        this.state.users.forEach(user => {
+            csv += `${user.username},${user.team},${user.employee_level},${user.transition || ''},${user.schedule},${user.status},${user.isLate ? 'Yes' : 'No'},${user.remarks || ''}\n`
+        });
+        console.log(csv);
+        const filename = "abbsent.csv"
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            var link = document.createElement("a");
+            if (link.download !== undefined) { // feature detection
+                // Browsers that support HTML5 download attribute
+                var url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
     }
 
     componentDidMount() {
@@ -380,7 +406,16 @@ class Absents extends Component {
                 </React.Fragment>
                 ),
                 Cell: row => (
-                row.original.remarks ? <button  data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username, row.original.remarks)} className="btn btn-link text-dark" title="Edit remarks">{  row.original.remarks }</button> : <button data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username)} className="btn btn-orange">Add Remarks</button>
+                row.original.remarks ? <button  disabled={this.state.addRemarkLoading} data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username, row.original.remarks)} className="btn btn-link text-dark" title="Edit remarks">{  row.original.remarks }</button> : <button data-toggle="modal" data-target="#remarkModal"  onClick={this.addRemark(row.original.username)} className="btn btn-orange">
+                     {
+                        this.state.addRemarkLoading ? (
+                            <React.Fragment>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                Loading...
+                            </React.Fragment>
+                        ) : 'Add Remarks'
+                    }
+                </button>
                 )
             },
 
@@ -471,7 +506,9 @@ class Absents extends Component {
                             </ol>
                         </nav>
                     </div>
-                </div>		
+                </div>
+
+                <button className="btn btn-orange mb-5" onClick={this.handleExportCsv}>Export</button>		
 
                 <div className="table-area">
                     {

@@ -283,7 +283,7 @@ class Attendance extends Component {
                 const index = this.state.users.findIndex(user => user.id == this.context.user.id);
                 console.log('index: ', index)
                 console.log(state)
-                if(!(this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && state && index > -1 ) {
+                if( state && index > -1 ) {
                    if(!this.state.users[index].rollCall) {
                     Swal.fire({
                         title: "Roll Call",
@@ -618,7 +618,23 @@ class Attendance extends Component {
                                                 
                                             this.state.meetingState !== 'end' && (
                                                 <React.Fragment>
-                                                    <button onClick={this.handleStop} className="btn btn-danger mb-4">Stop</button>
+                                                    <button onClick={this.handleStop} className="btn btn-danger mb-4 mr-2">Stop</button>
+                                                    
+                                                    {
+                                                        this.state.users.findIndex(user => this.context.user.id == user.id) < 0  &&  (
+                                                        <button onClick={this.handleStamp} className="btn btn-orange mb-4 mr-2">
+                                                            {
+                                                                this.state.stamping ? (
+                                                                    <React.Fragment>
+                                                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                                                        Loading...
+                                                                    </React.Fragment>
+                                                                ) : 'STAMP IN'
+                                                            }
+                                                        </button>
+                                                        )
+                                                       
+                                                    }
                                                 </React.Fragment>
                                             )
                                                 
@@ -649,6 +665,8 @@ class Attendance extends Component {
 
                                                     this.state.meetingState !== 'end' && (
                                                     <React.Fragment>
+
+
                                                         <p className="font-weight-bold mb-3"> Attendance is now open. You can now click "STAMP IN"</p>
                                                         <button onClick={this.handleStamp} className="btn btn-orange">
                                                             {
