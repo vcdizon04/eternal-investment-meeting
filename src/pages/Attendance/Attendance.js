@@ -94,11 +94,11 @@ class Attendance extends Component {
             this.setState({
                 meetingStarting: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
         })
     }
 
@@ -112,11 +112,15 @@ class Attendance extends Component {
             this.setState({
                 meetingStopping: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
+        }).catch(err => {
+            this.setState({
+                meetingStopping: false
+            })
         })
     }
 
@@ -130,11 +134,12 @@ class Attendance extends Component {
             this.setState({
                 meetingAdjourning: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // this.init();
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
         })
     }
 
@@ -169,11 +174,11 @@ class Attendance extends Component {
             this.setState({
                 lateEntryStarting: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
         })
     }
 
@@ -187,11 +192,11 @@ class Attendance extends Component {
             this.setState({
                 rollCalling: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
         })
     }
 
@@ -205,11 +210,11 @@ class Attendance extends Component {
             this.setState({
                 rollCalling: false
             })
-            Swal.fire(
-                'Success',
-                res.data.message,
-                'success'
-            )
+            // Swal.fire(
+            //     'Success',
+            //     res.data.message,
+            //     'success'
+            // )
         })
     }
 
@@ -538,8 +543,17 @@ class Attendance extends Component {
                 <div className="table-area">
                     <div className="actions">
                         {
-                         ((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team')  && this.state.isMeetingTriggered) && (
-                               <button onClick={this.handleAdjourned} className="btn btn-info mb-4 mr-2">Adjourned</button>
+                         ((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team')  && this.state.isMeetingTriggered && this.state.meetingState !== 'none') && (
+                               <button disabled={this.state.meetingAdjourning} onClick={this.handleAdjourned} className="btn btn-info mb-4 mr-2">
+                                     {
+                                        this.state.meetingAdjourning ? (
+                                            <React.Fragment>
+                                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                                Loading...
+                                            </React.Fragment>
+                                        ) : 'Adjournded'
+                                    }
+                               </button>
                            )
                         }
                        {
@@ -618,7 +632,17 @@ class Attendance extends Component {
                                                 
                                             this.state.meetingState !== 'end' && (
                                                 <React.Fragment>
-                                                    <button onClick={this.handleStop} className="btn btn-danger mb-4 mr-2">Stop</button>
+                                                    <button disabled={this.state.meetingStopping} onClick={this.handleStop} className="btn btn-danger mb-4 mr-2">
+                                                        {
+                                                            this.state.meetingStopping ? (
+                                                                <React.Fragment>
+                                                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                                                    Loading...
+                                                                </React.Fragment>
+                                                            ) : this.state.meetingState == 'late-start' ? 'End' : 'Stop'
+
+                                                        }
+                                                    </button>
                                                     
                                                     {
                                                         this.state.users.findIndex(user => this.context.user.id == user.id) < 0  &&  (
