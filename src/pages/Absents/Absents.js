@@ -377,21 +377,21 @@ class Absents extends Component {
                 ),
             },
 
-            {
-                Header: (
-                <React.Fragment>
-                    <p className="mb-2">Late</p>
-                    <select name="isLate" onChange={this.handleFilterChange} className="custom-select">
-                        <option value="all">All</option>
-                        <option value="true">Late</option>
-                        <option value="false">Ontime</option>
-                    </select>
-                </React.Fragment>
-                ),
-                Cell: row => (
-                    <span className={row.original.isLate ? 'text-warning' : 'text-success'}>{row.original.isLate ? 'Late' : 'On Time' }</span>
-                ),
-            },
+            // {
+            //     Header: (
+            //     <React.Fragment>
+            //         <p className="mb-2">Late</p>
+            //         <select name="isLate" onChange={this.handleFilterChange} className="custom-select">
+            //             <option value="all">All</option>
+            //             <option value="true">Late</option>
+            //             <option value="false">Ontime</option>
+            //         </select>
+            //     </React.Fragment>
+            //     ),
+            //     Cell: row => (
+            //         <span className={row.original.isLate ? 'text-warning' : 'text-success'}>{row.original.isLate ? 'Late' : 'On Time' }</span>
+            //     ),
+            // },
 
             
             {

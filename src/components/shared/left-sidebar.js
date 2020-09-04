@@ -109,6 +109,14 @@ export default class LeftSidebar extends Component {
 									<span className="icon icon-dashboard">
 										<img src={dashboardSvg} className="imgsvg" alt="dashboard" />
 									</span>
+									<span className="text">Daily Attendance</span>
+								</NavLink>
+							</li>
+							<li className="level_0">
+								<NavLink exact={true} to="/meeting" activeClassName='active' className="link">
+									<span className="icon icon-dashboard">
+										<img src={dashboardSvg} className="imgsvg" alt="dashboard" />
+									</span>
 									<span className="text">Metting Attendance</span>
 								</NavLink>
 							</li>
