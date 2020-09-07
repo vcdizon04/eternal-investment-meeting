@@ -8,6 +8,7 @@ import Header from './components/shared/header';
 import Routes from './routes/Routes';
 import history from './history';
 import Cookies from 'js-cookie';
+import webNotification from 'simple-web-notification';
 
 function App() {
 
@@ -15,6 +16,13 @@ function App() {
   const [user, setUser] = useState(userOnCookie);
 
   useEffect(() => {
+    webNotification.requestPermission(function onRequest(granted) {
+        if (granted) {
+            console.log('Permission Granted.');
+        } else {
+            console.log('Permission Not Granted.');
+        }
+    });
     setUser(userOnCookie)
   })
 

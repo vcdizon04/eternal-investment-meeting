@@ -21,8 +21,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-table": "^6.9.2",
-    "sweetalert2": "^9.17.0",
-    "socket.io-client": "^2.3.0"
+    "simple-web-notification": "^2.0.1",
+    "socket.io-client": "^2.3.0",
+    "sweetalert2": "^9.17.0"
   },
   "scripts": {
     "start": "react-scripts start",

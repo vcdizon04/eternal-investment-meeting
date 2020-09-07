@@ -6,6 +6,9 @@ import Pagination from '../../components/pagination/pagination';
 import { request, socket } from '../../constants/constants';
 import Swal from 'sweetalert2';
 import UserContext from '../../contexts/user';
+import $ from 'jquery';
+import webNotification from 'simple-web-notification';
+
 
 class Attendance extends Component {
     Socket;
@@ -270,6 +273,29 @@ class Attendance extends Component {
                 this.setState({
                     meetingState: state,
                     isMeetingTriggered: true,
+                }, () => {
+                    if((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && (this.state.meetingState == 'start' || this.state.meetingState == 'late-start') && this.state.users.findIndex(user => this.context.user.id == user.id) < 0) {
+                        $('#stampModal').modal('show')
+                        webNotification.showNotification('Example Notification', {
+                            body: 'Notification Text...',
+                            icon: 'my-icon.ico',
+                            onClick: function onNotificationClicked() {
+                                console.log('Notification clicked.');
+                            },
+                            autoClose: undefined
+                        }, function onShow(error, hide) {
+                            if (error) {
+                                window.alert('Unable to show notification: ' + error.message);
+                            } else {
+                                console.log('Notification Shown.');
+                     
+                                // setTimeout(function hideNotification() {
+                                //     console.log('Hiding notification....');
+                                //     hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                                // }, 5000);
+                            }
+                        })
+                    }
                 })
             });
     
@@ -528,6 +554,42 @@ class Attendance extends Component {
         ]
         return (
             <div>
+                <div className="modal fade" id="stampModal" tabIndex={-1} role="dialog" aria-labelledby="stampModal" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="stampModal">Attendance</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            {
+                                ((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && this.state.meetingState !== 'end') && (
+                                        this.state.users.findIndex(user => this.context.user.id == user.id) < 0  &&  (
+                                            <div className="text-center">
+                                                <p className="font-weight-bold mb-3"> Attendance is now open. You can now click "STAMP IN"</p>
+                                            </div>  
+                                        )
+                                ) 
+                            }
+                        </div>
+                        <div className="modal-footer">
+                            <button onClick={this.handleStamp} data-dismiss="modal" className="btn btn-orange">
+                                {
+                                    this.state.stamping ? (
+                                        <React.Fragment>
+                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                            Loading...
+                                        </React.Fragment>
+                                    ) : 'STAMP IN'
+                                }
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="page-head mb_30">
                     <div className="head">
                         <h1 className="page-title">Meeting Attendance</h1>
@@ -541,6 +603,7 @@ class Attendance extends Component {
                 </div>		
 
                 <div className="table-area">
+
                     <div className="actions">
                         {
                          ((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team')  && this.state.isMeetingTriggered && this.state.meetingState !== 'none') && (
@@ -644,7 +707,7 @@ class Attendance extends Component {
                                                         }
                                                     </button>
                                                     
-                                                    {
+                                                    {/* {
                                                         this.state.users.findIndex(user => this.context.user.id == user.id) < 0  &&  (
                                                         <button onClick={this.handleStamp} className="btn btn-orange mb-4 mr-2">
                                                             {
@@ -658,7 +721,7 @@ class Attendance extends Component {
                                                         </button>
                                                         )
                                                        
-                                                    }
+                                                    } */}
                                                 </React.Fragment>
                                             )
                                                 
