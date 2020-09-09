@@ -2,6 +2,7 @@
   "name": "eternal-investment",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -f -r ../static && mv ./build/* ../",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
