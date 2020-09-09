@@ -216,7 +216,7 @@ export default class Header extends Component {
 																	</div>
 																</li>
 															)} */}
-															<li><Link to="/edit/profile"><button className="link">Edit Profile</button></Link></li>
+															<li><Link to="/edit-password"><button className="link">Edit Profile</button></Link></li>
 															{/* {permissions.some(p => ['administrator'].includes(p)) && <li><Link to="/organisation/edit"><button className="link">Edit Organisation</button></Link></li>} */}
 															<li><button className="link" onClick={this.logOut}>Logout</button></li>
 														</ul>

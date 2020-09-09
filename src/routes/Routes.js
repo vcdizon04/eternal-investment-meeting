@@ -7,12 +7,14 @@ import AdminRoute from '../components/protected-route/adminRoute';
 import Absents from '../pages/Absents/Absents';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
 import DailyAttendance from '../pages/DailyAttendance/DailyAttendance';
+import EditPassword from '../pages/EditPassword/EditPassword';
 
 function Routes() {
         return (
             <Switch>
                 <ProtectedRoute path="/meeting" exact component={Attendance} />
                 <ProtectedRoute path="/" exact component={DailyAttendance} />
+                <ProtectedRoute path="/edit-password" exact component={EditPassword} />
                 <Route path="/reset-password" exact component={ResetPassword} />
                 <AdminRoute path="/absents" exact component={Absents} />
                 <Route path="/login" component={LogIn} />

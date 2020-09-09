@@ -276,8 +276,8 @@ class Attendance extends Component {
                 }, () => {
                     if((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && (this.state.meetingState == 'start' || this.state.meetingState == 'late-start') && this.state.users.findIndex(user => this.context.user.id == user.id) < 0) {
                         $('#stampModal').modal('show')
-                        webNotification.showNotification('Example Notification', {
-                            body: 'Notification Text...',
+                        webNotification.showNotification('Meeting Attendance', {
+                            body: 'Attendance is now open. You can now click "STAMP IN"',
                             icon: 'my-icon.ico',
                             onClick: function onNotificationClicked() {
                                 console.log('Notification clicked.');
@@ -316,6 +316,25 @@ class Attendance extends Component {
                 console.log(state)
                 if( state && index > -1 ) {
                    if(!this.state.users[index].rollCall) {
+                    webNotification.showNotification('Meeting Roll Call', {
+                        body: 'Roll Call is now running. You can now stamp in "PRESENT".',
+                        icon: 'my-icon.ico',
+                        onClick: function onNotificationClicked() {
+                            console.log('Notification clicked.');
+                        },
+                        autoClose: undefined
+                    }, function onShow(error, hide) {
+                        if (error) {
+                            window.alert('Unable to show notification: ' + error.message);
+                        } else {
+                            console.log('Notification Shown.');
+                 
+                            // setTimeout(function hideNotification() {
+                            //     console.log('Hiding notification....');
+                            //     hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                            // }, 5000);
+                        }
+                    })
                     Swal.fire({
                         title: "Roll Call",
                         text: 'Roll Call is now running. You can now stamp in "PRESENT".',
@@ -351,6 +370,25 @@ class Attendance extends Component {
 
             if(res.data.data.rollCallState && index > -1) {
                 if( !this.state.users[index].rollCall ) {
+                    webNotification.showNotification('Meeting Roll Call', {
+                        body: 'Roll Call is now running. You can now stamp in "PRESENT".',
+                        icon: 'my-icon.ico',
+                        onClick: function onNotificationClicked() {
+                            console.log('Notification clicked.');
+                        },
+                        autoClose: undefined
+                    }, function onShow(error, hide) {
+                        if (error) {
+                            window.alert('Unable to show notification: ' + error.message);
+                        } else {
+                            console.log('Notification Shown.');
+                 
+                            // setTimeout(function hideNotification() {
+                            //     console.log('Hiding notification....');
+                            //     hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                            // }, 5000);
+                        }
+                    })
                     Swal.fire({
                         title: "Roll Call",
                         text: "Are you still there?",
@@ -376,6 +414,31 @@ class Attendance extends Component {
                 }
               
             }
+
+            if((this.context.user.team == 'Executive Team' || this.context.user.team == 'Admin Team') && (this.state.meetingState == 'start' || this.state.meetingState == 'late-start') && this.state.users.findIndex(user => this.context.user.id == user.id) < 0) {
+                $('#stampModal').modal('show')
+                webNotification.showNotification('Meeting Attendance', {
+                    body: 'Attendance is now open. You can now click "STAMP IN"',
+                    icon: 'my-icon.ico',
+                    onClick: function onNotificationClicked() {
+                        console.log('Notification clicked.');
+                    },
+                    autoClose: undefined
+                }, function onShow(error, hide) {
+                    if (error) {
+                        window.alert('Unable to show notification: ' + error.message);
+                    } else {
+                        console.log('Notification Shown.');
+             
+                        // setTimeout(function hideNotification() {
+                        //     console.log('Hiding notification....');
+                        //     hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                        // }, 5000);
+                    }
+                })
+            }
+            
+
             })
 
         })
@@ -764,7 +827,7 @@ class Attendance extends Component {
                                                                     </React.Fragment>
                                                                 ) : 'STAMP IN'
                                                             }
-                                                        </button>
+                                                        </button>me
                                                     </React.Fragment>
                                                     )
                                                 
