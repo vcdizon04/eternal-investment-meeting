@@ -12,7 +12,7 @@ class DailyAttendance extends Component {
     constructor(props) {
         super(props);
         this.state = {
-         attendance: {}   
+            
         }
     }
 
@@ -89,7 +89,7 @@ class DailyAttendance extends Component {
                     }
                     </div>
                     {
-                        Object.keys(this.state.attendance).length == 0 ? (
+                        !this.state.attendance ? (
                             <div className="text-center mt-5">
                                 <p className="mb-3">You are not stamped for the day yet</p>
                                 <button onClick={this.handleStamp} className="btn btn-orange mb-4 mr-2">
