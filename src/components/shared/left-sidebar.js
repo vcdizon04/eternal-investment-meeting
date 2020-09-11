@@ -3,6 +3,9 @@ import Logos from '../../public/images/small-logo.png';
 import Logo from '../../public/images/logo.png';
 import dashboardSvg from '../../public/svg/dashboard.svg';
 import gamesSvg from '../../public/svg/games.svg';
+import clockSvg from '../../public/svg/clock.svg';
+import dateSvg from '../../public/svg/date.svg';
+import timeSvg from '../../public/svg/time.svg';
 import settingsSvg from '../../public/svg/settings.svg';
 import organisationSvg from '../../public/svg/organisation.svg';
 import leaguesSvg from '../../public/svg/leagues.svg';
@@ -107,7 +110,7 @@ export default class LeftSidebar extends Component {
 							<li className="level_0">
 								<NavLink exact={true} to="/" activeClassName='active' className="link">
 									<span className="icon icon-dashboard">
-										<img src={dashboardSvg} className="imgsvg" alt="dashboard" />
+										<img src={timeSvg} className="imgsvg" alt="dashboard" />
 									</span>
 									<span className="text">Daily Attendance</span>
 								</NavLink>
@@ -115,7 +118,7 @@ export default class LeftSidebar extends Component {
 							<li className="level_0">
 								<NavLink exact={true} to="/meeting" activeClassName='active' className="link">
 									<span className="icon icon-dashboard">
-										<img src={dashboardSvg} className="imgsvg" alt="dashboard" />
+										<img src={clockSvg} className="imgsvg" alt="dashboard" />
 									</span>
 									<span className="text">Metting Attendance</span>
 								</NavLink>
@@ -126,7 +129,7 @@ export default class LeftSidebar extends Component {
 									<li className="level_0">
 										<NavLink to="/absents" activeClassName='active' className="link">
 											<span className="icon icon-games">
-												<img src={gamesSvg} className="imgsvg" alt="games" />
+												<img src={dateSvg} className="imgsvg" alt="games" />
 											</span>
 											<span className="text">Absents</span>
 											{/* <span className="icon icon-down-arrow"><FontAwesomeIcon icon={faChevronDown} className="fa" /></span> */}
